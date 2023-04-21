@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Filters, ProductList, Sort, PageHero } from '../components'
+import { products_url } from '../utils/constants'
+import axios from 'axios'
 
 const ProductsPage = () => {
   return <h4>products page</h4>
@@ -19,4 +21,11 @@ const Wrapper = styled.div`
   }
 `
 
+// export const ProductsLoader = async ()=>{
+//   const products = await axios.get(products_url);
+//   console.log("🚀 ~ file: ProductsPage.jsx:25 ~ ProductsLoader ~ products:", products)
+//   return {
+//     products
+//   }
+// }
 export default ProductsPage

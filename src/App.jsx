@@ -10,11 +10,15 @@ import {
   Private
 } from './pages'
 import AppLayout from './components/layouts/AppLayout';
+import ErrorPage from './pages/ErrorPage';
+// import { ProductsLoader } from './pages/ProductsPage';
 
 const router = createBrowserRouter([
   {
     path : '/',
     element : <AppLayout />,
+    errorElement : <ErrorPage />,
+    // loader : ProductsLoader ,
     children:[
       {
         index: true,
@@ -37,6 +41,10 @@ const router = createBrowserRouter([
       {
         path : 'cart',
         element : <Cart />
+      },
+      {
+        path : 'checkout',
+        element : <Checkout />
       }
     ]
   }
