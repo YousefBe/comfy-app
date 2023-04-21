@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+import { formatPrice } from '../../../utils/helpers'
 const ListView = () => {
   return <h4>list view</h4>
 }

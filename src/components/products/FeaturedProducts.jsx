@@ -1,10 +1,10 @@
 import React from 'react'
-import { useProductsContext } from '../../context/products_context'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Error from '../Error'
-import Loading from '../Loading'
-import Product from './Product'
+import Error from '../globals/Error'
+import Loading from '../globals/Loading'
+import Product from '../products/Product'
+import { useProductsContext } from '../../context/products_context'
 
 const FeaturedProducts = () => {
   return <h4>featured products</h4>
