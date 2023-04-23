@@ -49,7 +49,7 @@ const filter_reducer = (state, action) => {
   if (action.type === SORT_PRODUCTS) {
     const { filteredProducts, sort } = state;
     let tempProducts = [...filteredProducts];
-    
+
     switch (sort) {
       case "price-lowest":
         tempProducts = tempProducts.sort((a, b) => a.price - b.price);
@@ -86,13 +86,56 @@ const filter_reducer = (state, action) => {
     };
   }
   if (action.type === FILTER_PRODUCTS) {
+    const { allProducts } = state;
+    let tempProducts = [...allProducts];
+    const { text, price, colors, category, company, shipping } = state.filters;
+    if (text) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.name.toLowerCase().startsWith(text);
+      });
+    }
+    if (category !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.category === category;
+      });
+    }
+    if (company !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.company === company;
+      });
+    }
+    if (colors !== "all") {
+      tempProducts = tempProducts.filter((product) => {
+        return product.colors.find((col) => col === colors);
+      });
+    }
+    if (price) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.price <= price;
+      });
+    }
+    if (shipping) {
+      tempProducts = tempProducts.filter((product) => {
+        return product.shipping === true;
+      });
+    }
     return {
       ...state,
+      filteredProducts: tempProducts,
     };
   }
   if (action.type === CLEAR_FILTERS) {
     return {
       ...state,
+      filters: {
+        ...state.filters,
+        text: "",
+        company: "all",
+        category: "all",
+        colors: "all",
+        price: state.filters.maxPrice,
+        shipping: false,
+      },
     };
   }
   throw new Error(`No Matching "${action.type}" - action type`);

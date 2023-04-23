@@ -21,6 +21,7 @@ const initialState = {
   filters: {
     text: "",
     company: "all",
+    category: "all",
     colors: "all",
     minPrice: 0,
     maxPrice: 0,
@@ -62,6 +63,20 @@ export const FilterProvider = ({ children }) => {
     //we must make sure that the input name matches the ket in the filters object key 
     let name = e.target.name;
     let value = e.target.value;
+    if (name === 'category') {
+      // i think there might be a better way to do this , maybe we should use data attribute
+      value = e.target.textContent
+    }
+    if (name === 'colors') {
+      value = e.target.dataset.color
+    }
+
+    if (name === 'price') {
+      value = Number(value)
+    }
+    if (name === 'shipping') {
+      value = e.target.checked
+    }
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
   };
 
