@@ -1,60 +1,60 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
-  Home ,
+  Home,
   Products,
   SingleProduct,
   About,
   Cart,
   Error,
   Checkout,
-  Private
-} from './pages'
-import AppLayout from './components/layouts/AppLayout';
-import ErrorPage from './pages/ErrorPage';
+  Private,
+} from "./pages";
+import AppLayout from "./components/layouts/AppLayout";
+import ErrorPage from "./pages/ErrorPage";
 // import { ProductsLoader } from './pages/ProductsPage';
 
 const router = createBrowserRouter([
   {
-    path : '/',
-    element : <AppLayout />,
-    errorElement : <ErrorPage />,
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <ErrorPage />,
     // loader : ProductsLoader ,
-    children:[
+    children: [
       {
         index: true,
-        element : <Home />,
+        element: <Home />,
       },
       {
-        path : 'products',
-        element : <Products />,
-        children:[
+        path: "products",
+        children: [
           {
-            path :':id',
-            element : <SingleProduct />
+            index: true,
+            element: <Products />,
           },
-        ]
+          {
+            path: ":id",
+            element: <SingleProduct />,
+          },
+        ],
       },
       {
-        path : 'about',
-        element : <About />
+        path: "about",
+        element: <About />,
       },
       {
-        path : 'cart',
-        element : <Cart />
+        path: "cart",
+        element: <Cart />,
       },
       {
-        path : 'checkout',
-        element : <Checkout />
-      }
-    ]
-  }
-])
+        path: "checkout",
+        element: <Checkout />,
+      },
+    ],
+  },
+]);
 
 function App() {
-
-  return (
-   <RouterProvider router={router} />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

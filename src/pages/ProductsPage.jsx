@@ -1,12 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Filters, ProductList, Sort, PageHero } from '../components'
-import { products_url } from '../utils/constants'
-import axios from 'axios'
+import React from "react";
+import styled from "styled-components";
+import { Filters, ProductList, Sort, PageHero } from "../components";
+import { products_url } from "../utils/constants";
+import axios from "axios";
 
 const ProductsPage = () => {
-  return <h4>products page</h4>
-}
+  return (
+    <main>
+      <PageHero title={"Products "} />
+      <Wrapper className="page">
+        <div className="section-center products">
+          <Filters />
+          <div>
+            <Sort />
+            <ProductList />
+          </div>
+        </div>
+      </Wrapper>
+    </main>
+  );
+};
 
 const Wrapper = styled.div`
   .products {
@@ -19,7 +32,7 @@ const Wrapper = styled.div`
       grid-template-columns: 200px 1fr;
     }
   }
-`
+`;
 
 // export const ProductsLoader = async ()=>{
 //   const products = await axios.get(products_url);
@@ -28,4 +41,4 @@ const Wrapper = styled.div`
 //     products
 //   }
 // }
-export default ProductsPage
+export default ProductsPage;

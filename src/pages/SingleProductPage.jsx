@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { useProductsContext } from '../context/products_context'
-import { single_product_url as url } from '../utils/constants'
-import { formatPrice } from '../utils/helpers'
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useProductsContext } from "../context/products_context";
+import { single_product_url as url } from "../utils/constants";
+import { formatPrice } from "../utils/helpers";
 import {
   Loading,
   Error,
@@ -10,13 +10,71 @@ import {
   AddToCart,
   Stars,
   PageHero,
-} from '../components'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+} from "../components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const SingleProductPage = () => {
-  return <h4>single product page</h4>
-}
+  const { id } = useParams();
+  const {
+    fetchSingleProduct,
+    single_product_loading: loading,
+    single_product_error: error,
+    single_product: product,
+  } = useProductsContext();
+
+  useEffect(() => {
+    fetchSingleProduct(`${url}${id}`);
+  }, [id]);
+  if (loading) return <Loading />;
+
+  if (error) return <Error />;
+
+  const {
+    id: productId,
+    name,
+    description,
+    price,
+    stock,
+    stars,
+    reviews,
+    images,
+    company,
+  } = product;
+  return (
+    <Wrapper>
+      <PageHero title={name} product={true} />
+      <div className="section section-center page">
+        <Link to="/products" className="btn">
+          Back to Products
+        </Link>
+        <div className="product-center">
+          <ProductImages images={images} />
+          <section className="content">
+            <h2>{name}</h2>
+            <Stars stars={stars} reviews={reviews}/>
+            <h5 className="price">{formatPrice(price)}</h5>
+            <p className="desc">{description}</p>
+            <p className="info">
+              <span>Availabel : </span>
+              {stock > 0 ? 'In Stock' : 'Out of Stock'}
+            </p>
+            <p className="info">
+              <span>SKU : </span>
+              {productId}
+            </p>
+            <p className="info">
+              <span>Brand : </span>
+              {company}
+            </p>
+            <hr />
+            {stock && <AddToCart product={product}/>}
+          </section>
+        </div>
+      </div>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.main`
   .product-center {
@@ -50,6 +108,16 @@ const Wrapper = styled.main`
       font-size: 1.25rem;
     }
   }
-`
+`;
 
-export default SingleProductPage
+// do it later
+export const getSingleProduct = async () => {
+  const product = {};
+  return {
+    props: {
+      product,
+    },
+  };
+};
+
+export default SingleProductPage;
