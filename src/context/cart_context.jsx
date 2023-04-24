@@ -33,7 +33,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = (id, color, amount, product) => {
     dispatch({
       type: ADD_TO_CART,
-      payload: { id, color, amount, amount, product },
+      payload: { id, color, amount, product },
     });
   };
 
